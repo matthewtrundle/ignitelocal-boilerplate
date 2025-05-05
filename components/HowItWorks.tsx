@@ -29,11 +29,11 @@ interface StepIconProps {
 }
 
 const StepIcon: FC<StepIconProps> = ({ type }) => {
-  // Define SVG icons for each step type with matching colors
+  // Define SVG icons for each step type with matching colors from ignite palette
   const iconStyles = {
-    consultation: "text-feature-indigo",
-    solution: "text-feature-teal",
-    implementation: "text-feature-amber"
+    consultation: "text-ignite-purple",
+    solution: "text-ignite-pink",
+    implementation: "text-ignite-gold"
   };
   
   const icons = {
@@ -72,16 +72,25 @@ interface StepProps {
 }
 
 const Step: FC<StepProps> = ({ title, description, type, index }) => {
-  // Get step-specific colors
+  // Get step-specific colors from ignite palette
   const stepColorClasses = {
     consultation: {
-      text: "text-feature-indigo",
+      text: "text-ignite-purple",
+      bg: "bg-ignite-purple/5",
+      border: "border-ignite-purple",
+      pattern: "#8A3FFC"
     },
     solution: {
-      text: "text-feature-teal",
+      text: "text-ignite-pink",
+      bg: "bg-ignite-pink/5",
+      border: "border-ignite-pink",
+      pattern: "#FF7EB6"
     },
     implementation: {
-      text: "text-feature-amber",
+      text: "text-ignite-gold",
+      bg: "bg-ignite-gold/5",
+      border: "border-ignite-gold",
+      pattern: "#F1C21B"
     }
   };
   
@@ -89,15 +98,23 @@ const Step: FC<StepProps> = ({ title, description, type, index }) => {
   
   return (
     <motion.div 
-      className="flex flex-col items-center text-center relative p-6 rounded-xl shadow-md bg-gradient-to-br from-ignite-cyan/20 to-ignite-blue/10 hover:shadow-lg transition-all"
+      className={`group flex flex-col items-center text-center relative p-6 rounded-xl shadow-md ${colors.bg} border-l-4 ${colors.border} hover:shadow-lg transition-all`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
       viewport={{ once: true }}
     >
+      {/* SVG pattern background */}
+      <div 
+        className={`absolute inset-0 opacity-5 pointer-events-none rounded-xl ${colors.text}`}
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='currentColor' fill-opacity='0.3' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")`
+        }}
+      />
+      
       <StepIcon type={type} />
-      <div className="mt-6 px-4">
-        <h3 className="text-xl md:text-2xl font-semibold mb-3 text-primary-dark">{title}</h3>
+      <div className="mt-6 px-4 relative z-10">
+        <h3 className={`text-xl md:text-2xl font-semibold mb-3 text-ignite-navy group-hover:border-b-2 ${colors.border}`}>{title}</h3>
         <p className={`max-w-xs mx-auto ${colors.text}`}>{description}</p>
       </div>
     </motion.div>

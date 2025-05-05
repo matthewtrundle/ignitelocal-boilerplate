@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -32,8 +32,20 @@ export const Hero: FC<HeroProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
-  // Particles animation
+  // Client-side state for css variables
+  const [cssVariables, setCssVariables] = useState({
+    primary: '#8A3FFC', // ignite-purple fallback
+    secondary: '#33B1FF' // ignite-cyan fallback
+  });
+  
+  // Particles animation - only runs on client
   useEffect(() => {
+    // Get CSS variables on client-side
+    setCssVariables({
+      primary: getComputedStyle(document.documentElement).getPropertyValue('--primary') || '#8A3FFC',
+      secondary: getComputedStyle(document.documentElement).getPropertyValue('--secondary') || '#33B1FF'
+    });
+    
     if (!canvasRef.current || !useGradient) return;
     
     const canvas = canvasRef.current;
@@ -113,15 +125,16 @@ export const Hero: FC<HeroProps> = ({
   }, [useGradient]);
   
   return (
-    <section className="relative overflow-hidden py-24 min-h-screen flex items-center">
-      {/* Background elements */}
-      <div className="absolute inset-0 z-0" style={{
-        backgroundImage: `linear-gradient(to right, ${
-          getComputedStyle(document.documentElement).getPropertyValue('--primary')
-        }, ${
-          getComputedStyle(document.documentElement).getPropertyValue('--secondary')
-        })`,
-      }} />
+    <section className="relative overflow-hidden py-24 min-h-screen flex items-center bg-ignite-navy">
+      {/* Background gradient - static version for SSR */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-ignite-purple to-ignite-cyan" />
+      
+      {/* Client-side dynamic gradient (will replace the static one after hydration) */}
+      {typeof window !== 'undefined' && (
+        <div className="absolute inset-0 z-0" style={{
+          backgroundImage: `linear-gradient(to right, ${cssVariables.primary}, ${cssVariables.secondary})`,
+        }} />
+      )}
       
       {backgroundImage && (
         <Image 
