@@ -7,8 +7,15 @@ import { FaqAccordion } from '@/components/services/FaqAccordion';
 import { getAllServiceIds, getServiceData } from '@/lib/data/services';
 import { generateServiceSchema } from '@/lib/schema/serviceSchema';
 
-interface ServicePageProps {
-  params: { slug: string }
+// Define the interface for the props that Next.js 15.3.1 passes to the page component
+type Params = {
+  slug: string;
+}
+
+// Define the interface for the props that Next.js 15.3.1 passes to the page component
+interface PageProps {
+  params: Params;
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
 export async function generateStaticParams() {
@@ -20,10 +27,11 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  { params }: { params: { slug: string } }
+  props: PageProps
 ): Promise<Metadata> {
   try {
-    const service = getServiceData(params.slug);
+    const { slug } = props.params;
+    const service = getServiceData(slug);
     
     if (!service) {
       return {};
@@ -39,8 +47,9 @@ export async function generateMetadata(
   }
 }
 
-export default async function ServicePage({ params }: { params: { slug: string } }) {
-  const service = getServiceData(params.slug);
+export default function ServicePage(props: PageProps) {
+  const { slug } = props.params;
+  const service = getServiceData(slug);
   
   if (!service) {
     notFound();
