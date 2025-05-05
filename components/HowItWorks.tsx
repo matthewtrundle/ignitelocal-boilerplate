@@ -31,9 +31,9 @@ interface StepIconProps {
 const StepIcon: FC<StepIconProps> = ({ type }) => {
   // Define SVG icons for each step type with matching colors
   const iconStyles = {
-    consultation: "text-ignite-purple",
-    solution: "text-ignite-cyan",
-    implementation: "text-ignite-gold"
+    consultation: "text-feature-indigo",
+    solution: "text-feature-teal",
+    implementation: "text-feature-amber"
   };
   
   const icons = {
@@ -75,13 +75,13 @@ const Step: FC<StepProps> = ({ title, description, type, index }) => {
   // Get step-specific colors
   const stepColorClasses = {
     consultation: {
-      text: "text-ignite-purple",
+      text: "text-feature-indigo",
     },
     solution: {
-      text: "text-ignite-cyan",
+      text: "text-feature-teal",
     },
     implementation: {
-      text: "text-ignite-gold",
+      text: "text-feature-amber",
     }
   };
   
@@ -97,7 +97,7 @@ const Step: FC<StepProps> = ({ title, description, type, index }) => {
     >
       <StepIcon type={type} />
       <div className="mt-6 px-4">
-        <h3 className="text-xl md:text-2xl font-semibold mb-3 text-ignite-navy">{title}</h3>
+        <h3 className="text-xl md:text-2xl font-semibold mb-3 text-primary-dark">{title}</h3>
         <p className={`max-w-xs mx-auto ${colors.text}`}>{description}</p>
       </div>
     </motion.div>

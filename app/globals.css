@@ -7,28 +7,44 @@
 
 /* 3) Your custom CSS (variables, typography, cards, buttons, etc.) */
 :root {
-  /* Stripe-inspired palette */
-  --background:    #F6F9FC;
-  --surface:       #FFFFFF;
-  --primary:       #0A2540;
-  --secondary:     #334E68;
-  --muted:         #627D98;
-  --accent:        #1AD6E6;
-  --accent-hover:  #17BECF;
-  --border:        #E6E8EB;
+  /* New color palette */
+  --primary-dark:  #1F2937;
+  --primary:       #2563EB;
+  --secondary:     #14B8A6;
+  --accent:        #F97316;
+  --bg:            #F9FAFB;
+  --gray:          #E5E7EB;
+  --text:          #4B5563;
+  --white:         #FFFFFF;
+
+  /* Feature accent colors */
+  --feature-blue:    #2563EB;
+  --feature-teal:    #14B8A6;
+  --feature-emerald: #10B981;
+  --feature-sky:     #0EA5E9;
+  --feature-fuchsia: #EC4899;
+  --feature-amber:   #F59E0B;
+  --feature-indigo:  #6366F1;
 
   /* Shadows */
-  --shadow-sm:     0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow:        0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-md:     0 10px 15px rgba(0, 0, 0, 0.05);
-  --shadow-hover:  0 10px 15px rgba(0, 0, 0, 0.08);
+  --shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow:          0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md:       0 10px 15px rgba(0, 0, 0, 0.05);
+  --shadow-hover:    0 10px 15px rgba(0, 0, 0, 0.08);
 
-  /* Ignite palette */
-  --ignite-purple: #635FC7;
-  --ignite-blue:   #70C1E6;
-  --ignite-cyan:   #38E0D4;
-  --ignite-pink:   #FF0080;
-  --ignite-gold:   #FFC700;
+  /* Legacy variables mapped to new colors */
+  --background:      var(--bg);
+  --surface:         var(--white);
+  --muted:           var(--text);
+  --accent-hover:    var(--accent);
+  --border:          var(--gray);
+  
+  /* Legacy Ignite palette */
+  --ignite-purple:   #8A3FFC;
+  --ignite-blue:     #33B1FF;
+  --ignite-cyan:     #33B1FF;
+  --ignite-pink:     #FF7EB6;
+  --ignite-gold:     #F1C21B;
 }
 
 body {

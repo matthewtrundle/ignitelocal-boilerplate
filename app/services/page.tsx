@@ -141,9 +141,13 @@ function ServiceCard({ service, index }: ServiceCardProps) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true }}
       className={`group border-2 hover:shadow-lg transition p-8 rounded-lg overflow-hidden flex flex-col
-        ${index % 3 === 0 ? 'bg-ignite-purple/10 border-ignite-purple' : 
-          index % 3 === 1 ? 'bg-ignite-pink/10 border-ignite-pink' : 
-          'bg-ignite-gold/10 border-ignite-gold'}`}
+        ${index % 7 === 0 ? 'bg-feature-blue/10 border-feature-blue' : 
+          index % 7 === 1 ? 'bg-feature-teal/10 border-feature-teal' : 
+          index % 7 === 2 ? 'bg-feature-emerald/10 border-feature-emerald' : 
+          index % 7 === 3 ? 'bg-feature-sky/10 border-feature-sky' : 
+          index % 7 === 4 ? 'bg-feature-fuchsia/10 border-feature-fuchsia' : 
+          index % 7 === 5 ? 'bg-feature-amber/10 border-feature-amber' : 
+          'bg-feature-indigo/10 border-feature-indigo'}`}
     >
       <div>
         <div className="text-accent mb-4">
@@ -154,7 +158,7 @@ function ServiceCard({ service, index }: ServiceCardProps) {
         <div className="mt-auto pt-4">
           <Link 
             href={`/services/${service.id}`}
-            className="text-ignite-accent hover:underline font-medium flex items-center"
+            className="text-primary hover:text-secondary font-medium flex items-center"
           >
             Learn more
             <svg

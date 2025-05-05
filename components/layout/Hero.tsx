@@ -115,7 +115,13 @@ export const Hero: FC<HeroProps> = ({
   return (
     <section className="relative overflow-hidden py-24 min-h-screen flex items-center">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-ignite-gradient z-0" />
+      <div className="absolute inset-0 z-0" style={{
+        backgroundImage: `linear-gradient(to right, ${
+          getComputedStyle(document.documentElement).getPropertyValue('--primary')
+        }, ${
+          getComputedStyle(document.documentElement).getPropertyValue('--secondary')
+        })`,
+      }} />
       
       {backgroundImage && (
         <Image 
