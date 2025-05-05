@@ -15,13 +15,7 @@ export async function generateStaticParams() {
   }));
 }
 
-type PageParams = {
-  params: {
-    slug: string;
-  };
-};
-
-export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
   try {
     const service = getServiceData(params.slug);
     
@@ -39,7 +33,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   }
 }
 
-export default async function ServicePage({ params }: PageParams) {
+export default async function ServicePage({ params }: { params: any }) {
   const service = getServiceData(params.slug);
   
   if (!service) {
