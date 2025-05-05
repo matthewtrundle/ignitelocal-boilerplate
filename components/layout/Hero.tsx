@@ -66,7 +66,20 @@ export const Hero: FC<HeroProps> = ({
           radius: Math.random() * 2 + 1,
           dx: (Math.random() - 0.5) * 0.5,
           dy: (Math.random() - 0.5) * 0.5,
-          color: `rgba(26, 214, 230, ${Math.random() * 0.5 + 0.1})`,
+          color: (() => {
+            // use a 4-color "ignite" palette with random alpha
+            const PARTICLE_PALETTE = [
+              'rgba(255,106,0,',   // Ember Orange
+              'rgba(255,214,0,',   // Spark Yellow
+              'rgba(230,57,70,',   // Flame Red
+              'rgba(198,40,40,'    // Lava Red
+            ];
+            return `${
+              PARTICLE_PALETTE[
+                Math.floor(Math.random() * PARTICLE_PALETTE.length)
+              ]
+            }${(Math.random() * 0.5 + 0.1).toFixed(2)})`;
+          })(),
         });
       }
     };

@@ -111,8 +111,51 @@ export const ModularSolutions = ({
     : [];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-screen-xl mx-auto px-4">
+    <section className="py-20 relative overflow-hidden">
+      {/* Dynamic gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-ignite-navy/5 via-white to-ignite-gold/5"></div>
+      
+      {/* Animated circuit pattern background */}
+      <div 
+        className="absolute inset-0 opacity-10" 
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238A3FFC' fill-opacity='0.4'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundSize: '80px 80px'
+        }}
+      ></div>
+      
+      {/* Floating elements animation */}
+      <motion.div 
+        className="absolute w-24 h-24 rounded-full bg-ignite-cyan/10 blur-xl"
+        style={{ top: '15%', left: '10%' }}
+        animate={{
+          x: [0, 30, 0],
+          y: [0, 15, 0],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
+      
+      <motion.div 
+        className="absolute w-32 h-32 rounded-full bg-ignite-purple/10 blur-xl"
+        style={{ top: '60%', right: '15%' }}
+        animate={{
+          x: [0, -20, 0],
+          y: [0, 20, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
+      
+      <div className="max-w-screen-xl mx-auto px-4 relative z-10">
         <div className="grid md:grid-cols-2 gap-12">
             {/* Left panel */}
             <div className="space-y-4">
@@ -327,7 +370,14 @@ const ServiceCard = ({ service, isActive, isRelated, onHover, onLeave, index }: 
 
   return (
     <motion.div
-      className={cardClasses}
+      className={cn(
+        cardClasses,
+        "group border-2 hover:shadow-lg transition p-8",
+        index === 0 ? "bg-ignite-purple/10 border-ignite-purple" : 
+        index === 1 ? "bg-ignite-pink/10 border-ignite-pink" :
+        index === 2 ? "bg-ignite-gold/10 border-ignite-gold" :
+        getIgniteAccentClass(index).background
+      )}
       whileHover={{ 
         scale: 1.05,
         boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"

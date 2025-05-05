@@ -143,7 +143,12 @@ a:hover {
   animation: gradient-shift 15s ease infinite;
 }
 .bg-ignite-gradient {
-  background: linear-gradient(135deg, #635FC7 0%, #70C1E6 50%, #38E0D4 100%);
+  background: linear-gradient(135deg,
+    /* Ember Orange */  #FF6A00 0%,
+    /* Spark Yellow */  #FFD600 33%,
+    /* Flame Red */     #E63946 66%,
+    /* Lava Red */      #C62828 100%
+  );
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;
 }

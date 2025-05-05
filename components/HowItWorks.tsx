@@ -113,19 +113,97 @@ interface HowItWorksProps {
   className?: string;
 }
 
+// Floating decorative elements
+const FloatingElement: FC<{
+  size: number;
+  top: string;
+  left: string;
+  delay: number;
+  color: string;
+  type?: 'circle' | 'square' | 'triangle';
+}> = ({ size, top, left, delay, color, type = 'circle' }) => {
+  const renderShape = () => {
+    switch(type) {
+      case 'square':
+        return <div className={`w-${size} h-${size} ${color} rounded-md`}></div>;
+      case 'triangle':
+        return (
+          <div className="relative" style={{ width: `${size * 4}px`, height: `${size * 4}px` }}>
+            <div 
+              className={`absolute ${color}`}
+              style={{ 
+                width: '0',
+                height: '0',
+                borderLeft: `${size * 2}px solid transparent`,
+                borderRight: `${size * 2}px solid transparent`,
+                borderBottom: `${size * 4}px solid currentColor`
+              }}
+            ></div>
+          </div>
+        );
+      case 'circle':
+      default:
+        return <div className={`w-${size} h-${size} ${color} rounded-full`}></div>;
+    }
+  };
+  
+  return (
+    <motion.div
+      className="absolute z-0 opacity-60"
+      style={{ top, left }}
+      animate={{
+        y: ["0%", "20%", "0%"],
+        rotate: [0, 15, 0]
+      }}
+      transition={{
+        duration: 6,
+        delay,
+        repeat: Infinity,
+        repeatType: "reverse"
+      }}
+    >
+      {renderShape()}
+    </motion.div>
+  );
+};
+
 export const HowItWorks: FC<HowItWorksProps> = ({ steps = defaultSteps, className }) => {
   return (
-    <section className={cn("py-24 bg-background", className)} id="how-it-works">
-      <div className="container-xl">
+    <section className={cn("relative overflow-hidden py-32", className)} id="how-it-works">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-ignite-purple/5 z-0"></div>
+      
+      {/* Animated mesh pattern background */}
+      <div className="absolute inset-0 opacity-10 z-0" 
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23635FC7' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+        }}
+      ></div>
+      
+      {/* Floating decorative elements */}
+      <FloatingElement size={6} top="15%" left="8%" delay={0} color="text-ignite-purple/20" type="circle" />
+      <FloatingElement size={4} top="70%" left="15%" delay={1.5} color="text-ignite-gold/20" type="triangle" />
+      <FloatingElement size={8} top="20%" left="85%" delay={2.3} color="text-ignite-cyan/20" type="square" />
+      <FloatingElement size={5} top="75%" left="80%" delay={0.8} color="text-ignite-pink/20" type="circle" />
+
+      <div className="container-xl relative z-10">
         <AnimatedTypography 
           variant="h2" 
           animation="reveal" 
-          className="text-center mb-20"
+          className="text-center mb-6"
         >
           How It Works
         </AnimatedTypography>
         
-        <div className="flex flex-col md:flex-row justify-between space-y-16 md:space-y-0 relative px-4">
+        <AnimatedTypography
+          variant="p"
+          animation="fade"
+          className="text-center text-lg max-w-2xl mx-auto mb-20"
+        >
+          Our streamlined process makes it easy to get started with AI-powered solutions for your business.
+        </AnimatedTypography>
+        
+        <div className="flex flex-col md:flex-row justify-between space-y-16 md:space-y-0 md:space-x-6 relative px-4">
           {steps.map((step, index) => (
             <Step
               key={index}
@@ -135,6 +213,20 @@ export const HowItWorks: FC<HowItWorksProps> = ({ steps = defaultSteps, classNam
               index={index}
             />
           ))}
+        </div>
+        
+        {/* Connecting lines between steps (visible on md+ screens) */}
+        <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 z-0">
+          <div className="relative w-full">
+            <motion.div 
+              className="absolute h-0.5 bg-gradient-to-r from-ignite-purple via-ignite-cyan to-ignite-gold"
+              style={{ top: '0px', left: '20%', width: '60%' }}
+              initial={{ scaleX: 0, opacity: 0 }}
+              whileInView={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
+              viewport={{ once: true }}
+            ></motion.div>
+          </div>
         </div>
       </div>
     </section>
