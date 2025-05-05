@@ -46,7 +46,7 @@ export function ThemeProvider({
   }, []);
 
   // Always return light theme
-  const value = {
+  const value: ThemeProviderState = {
     theme: 'light',
   };
 
